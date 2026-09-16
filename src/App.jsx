@@ -1,37 +1,42 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
+import { BrowserRouter, Link, Route, Routes } from 'react-router-dom'
 import './App.css'
-import Paragrafo from './Paragrafo'
-import CaixaTexto from './CaixaTexto'
+import ThemeToggleButton from './components/ThemeToggleButton'
+import { ThemeProvider } from './contexts/ThemeContext'
+import AppTarefas from './pages/Tarefas/AppTarefas'
+import Home from './pages/Home'
+import Sobre from './pages/Sobre'
+import Usuarios from './pages/Usuarios'
 
 function App() {
-  const [num, setNum] = useState(1)
 
   return (
-    <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
-        </div>
+    <ThemeProvider>
+      <BrowserRouter>
         <div>
-          <h1>Comece!</h1>
+
+          <nav>
+            <ul>
+              <li><Link to="/">Home</Link></li>
+              <li><Link to="/tarefas">Tarefas</Link></li>
+              <li><Link to="/usuarios">Usuários</Link></li>
+              <li><Link to="/sobre">Sobre</Link></li>
+            </ul>
+          </nav>
+
+          <ThemeToggleButton />
         </div>
-
-        <CaixaTexto />
-
-        <Paragrafo nome="Fulano" />
-        <Paragrafo nome="Beltrano" />
-
-
-      </section>
-
-      <div className="ticks"></div>
-      <section id="spacer"></section>
-    </>
+        
+        {/* Define as rotas (links) */}
+        <div>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/tarefas" element={<AppTarefas />} />
+            <Route path="/usuarios" element={<Usuarios />} />
+            <Route path="/sobre" element={<Sobre />} />
+          </Routes>
+        </div>
+      </BrowserRouter>
+    </ThemeProvider>
   )
 }
 
